@@ -14,7 +14,7 @@ export const pageTheme = {
     textColor: '#2C2D34',
     trendsColor: '#8e8e8e', // side text colors
     placeholder: '#393E46',
-    borderColor: '#C8C2BC',
+    borderColor: 'rgb(228 228 228)',
     trendHover: 'rgb(240, 240, 240, 0.7)',
     trendBorderColor: '#cecece',
   },

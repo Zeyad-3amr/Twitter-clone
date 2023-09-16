@@ -22,6 +22,7 @@ const ColoredButtons = () => {
   const handleButtonClick = (theme) => {
     changeButtonTheme(theme);
     setIsChecked(theme);
+    localStorage.setItem('ButtonThemeData', theme);
   };
 
   return (

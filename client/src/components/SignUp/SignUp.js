@@ -5,56 +5,80 @@ import { AiOutlineTwitter } from 'react-icons/ai';
 import { H2 } from '../styledComponentsTest.js/components.js/H/H2';
 import { Button } from '../styledComponentsTest.js/components.js/Button/Button';
 import { useState } from 'react';
+import instance from '../../axios';
+import { useNavigate } from 'react-router-dom';
+import { useUserIdStore } from '../../store/userStorage';
+import { ErrorP } from '../styledComponentsTest.js/components.js/ErrorP/ErrorP';
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
-  const [username, setUserName] = useState('');
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  let data = { name: '', username: '', email: '', password: '', confirmPassword: '' };
+  const [passwordConfirm, setPasswordConfirm] = useState('');
   const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
+
+  const setUser = useUserIdStore((state) => state.setUser);
+
+  let data = { name: '', userName: '', email: '', password: '', passwordConfirm: '' };
 
   const nameHandler = (e) => {
-    // e.preventDefault();
+    setIsError(false);
     setName(e.target.value);
   };
   const userNameHandler = (e) => {
-    // e.preventDefault();
+    setIsError(false);
     setUserName(e.target.value);
   };
   const emailHandler = (e) => {
-    // e.preventDefault();
-    // setIsError(false);
+    setIsError(false);
     setEmail(e.target.value);
   };
   const passwordHandler = (e) => {
-    // e.preventDefault();
+    setIsError(false);
     setPassword(e.target.value);
   };
-  const confirmPasswordHandler = (e) => {
-    // e.preventDefault();
-    setConfirmPassword(e.target.value);
-    data.confirmPassword = confirmPassword;
+  const passwordConfirmHandler = (e) => {
+    setIsError(false);
+    setPasswordConfirm(e.target.value);
+    data.confirmPassword = passwordConfirm;
   };
-  const signupHandler = () => {
-    data = {
-      name,
-      username,
-      email,
-      password,
-      confirmPassword,
-    };
+  const signupHandler = async () => {
+    if (!email || !userName || !password || !password || !passwordConfirm) {
+      setIsError(true);
+      setErrorMessage('Please provide all the fields !');
+      return;
+    }
+    try {
+      data = {
+        name,
+        userName,
+        email,
+        password,
+        passwordConfirm,
+      };
 
-    console.log(data);
+      const res = await instance.post('user/signup', data);
+
+      if (res.data.status === 'success') {
+        navigate('/', { replace: true });
+      }
+      const { user } = await res.data.data;
+      setUser(user);
+    } catch (err) {
+      setIsError(true);
+      setErrorMessage(err.response.data.message);
+    }
   };
 
   return (
-    <Div signup>
+    <Div signup="true">
       <AiOutlineTwitter color="#1DA1F2" size={100} />
       <H2>Log in to Twitter</H2>
       <Input placeholder="name" onChange={nameHandler} value={name} />
-      <Input placeholder="username" onChange={userNameHandler} value={username} />
+      <Input placeholder="username" onChange={userNameHandler} value={userName} />
       <Input placeholder="email" type="email" onChange={emailHandler} value={email} />
       <Input
         placeholder="password"
@@ -65,11 +89,11 @@ const SignUp = () => {
       <Input
         placeholder="confirm password"
         type="password"
-        onChange={confirmPasswordHandler}
-        value={confirmPassword}
+        onChange={passwordConfirmHandler}
+        value={passwordConfirm}
       />
+      {isError && <ErrorP>{errorMessage}</ErrorP>}
       <Button onClick={signupHandler}>Sign up</Button>
-      {isError && <p>wrong email or password</p>}
     </Div>
   );
 };

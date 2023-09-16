@@ -10,7 +10,7 @@ const Notfication = () => {
   return (
     <>
       <HomeDiv>
-        <TweetCard tweet>
+        <TweetCard tweet="true">
           <HeaderDiv>
             <H3>Notifications</H3>
             <BiSolidBell size={25} />

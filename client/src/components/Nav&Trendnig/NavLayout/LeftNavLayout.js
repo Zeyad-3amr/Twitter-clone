@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom';
-// import LeftNav from '../leftNav/LeftNav';
 
 import React from 'react';
 import { LayoutDiv } from '../Nav/NavStyledComponents/LayoutDiv';

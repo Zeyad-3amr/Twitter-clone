@@ -15,4 +15,10 @@ export const Input = styled.input`
   &:focus {
     outline: none;
   }
+
+  @media (max-width: 1024px) {
+    width: 60%;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
 `;

@@ -14,4 +14,8 @@ export const Box = styled.div`
   padding: 2rem;
   border-radius: 2rem;
   gap: 1rem;
+
+  @media (max-width: 1024px) {
+    width: 90%;
+  }
 `;

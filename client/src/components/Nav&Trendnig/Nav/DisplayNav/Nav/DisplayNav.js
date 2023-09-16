@@ -11,43 +11,58 @@ import {
   BsFolder2,
   BsQuestionCircle,
 } from 'react-icons/bs';
-import { NavOptionsLINK } from '../NavStyledComponents/NavOptionsDiv';
 import { DisplayButton } from '../NavStyledComponents/DisplayButton';
-import Button from '../../../../ThemeButtons/BackGroundTheme/Buttons/ThemeButton';
-import ModalBox from './Modal';
+import ModalBox from './ModalBox';
+import instance from '../../../../../axios';
+import { useNavigate } from 'react-router-dom';
+import { useUserIdStore } from '../../../../../store/userStorage';
 
 const DisplayNav = ({ showDisplayOptions }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
+  const setUser = useUserIdStore((state) => state.setUser);
+  const logOutHandler = async () => {
+    try {
+      const res = await instance.get('user/signout');
+      if (res.data.status === 'success') {
+        setUser('');
+        navigate('/sign-in', { replace: true });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <MainDiv>
       <BackDropModal showDisplayOptions={showDisplayOptions}></BackDropModal>
       <DivDisplay>
         <NavDisplayUL>
           <li>
-            <NavOptionsLINK>
+            <DisplayButton>
               <BsFolder2 size={20} />
-              <h4>Topics</h4>
-            </NavOptionsLINK>
+              <p>Topics</p>
+            </DisplayButton>
           </li>
           <li>
-            <NavOptionsLINK>
+            <DisplayButton>
               <BsQuestionCircle size={20} />
-              <h4>Help Center</h4>
-            </NavOptionsLINK>
+              <p>Help Center</p>
+            </DisplayButton>
           </li>
           <li>
-            <NavOptionsLINK>
+            <DisplayButton>
               <BsBoxArrowUpRight size={20} />
-              <h4>Twitter Ads</h4>
-            </NavOptionsLINK>
+              <p>Twitter Ads</p>
+            </DisplayButton>
           </li>
           <li>
-            <NavOptionsLINK>
+            <DisplayButton>
               <FiSettings size={20} />
-              <h4>Settings & Privacy</h4>
-            </NavOptionsLINK>
+              <p>Settings & Privacy</p>
+            </DisplayButton>
           </li>
           <li>
             <DisplayButton onClick={handleOpen}>
@@ -57,10 +72,10 @@ const DisplayNav = ({ showDisplayOptions }) => {
             <ModalBox open={open} handleClose={handleClose} />
           </li>
           <li>
-            <NavOptionsLINK>
+            <DisplayButton onClick={logOutHandler}>
               <RiLogoutBoxLine size={22} />
-              <h4>Log out</h4>
-            </NavOptionsLINK>
+              <p>Log out</p>
+            </DisplayButton>
           </li>
         </NavDisplayUL>
       </DivDisplay>

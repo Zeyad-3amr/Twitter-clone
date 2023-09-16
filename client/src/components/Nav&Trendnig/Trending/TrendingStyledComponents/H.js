@@ -5,8 +5,8 @@ export const H3 = styled.h3`
 `;
 
 export const H6 = styled.h6`
-  color: ${({ theme, showMore }) =>
-    showMore ? theme.buttonTheme.color : theme.theme.trendsColor};
+  color: ${({ theme, showmore }) =>
+    showmore ? theme.buttonTheme.color : theme.theme.trendsColor};
 `;
 export const H4 = styled.h4`
   color: ${({ theme }) => theme.theme.textColor};

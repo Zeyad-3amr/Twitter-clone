@@ -13,28 +13,32 @@ const ThemesButton = () => {
   const handleButtonClick = (theme) => {
     changeTheme(theme);
     setActiveButton(theme);
+    localStorage.setItem('ThemeData', theme);
   };
+
   return (
     <>
       <P>Background</P>
       <ButtonsDiv>
         <LightButton
           onClick={() => handleButtonClick('Light')}
-          active={activeButton === 'Light'}
+          active={activeButton === 'Light' ? 'true' : undefined}
         >
           <BiCircle size={15} />
           Light
         </LightButton>
+
         <DimButton
           onClick={() => handleButtonClick('Dim')}
-          active={activeButton === 'Dim'}
+          active={activeButton === 'Dim' ? 'true' : undefined}
         >
           <BiCircle size={15} />
           Dim
         </DimButton>
+
         <DarkButton
           onClick={() => handleButtonClick('Dark')}
-          active={activeButton === 'Dark'}
+          active={activeButton === 'Dark' ? 'true' : undefined}
         >
           <BiCircle size={15} />
           Dark

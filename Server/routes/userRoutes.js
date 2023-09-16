@@ -1,5 +1,6 @@
 const express = require('express');
 const {
+  getMe,
   getUser,
   signup,
   login,
@@ -8,29 +9,29 @@ const {
   protect,
   signout,
   getAllusers,
+  uploadUserPhoto,
+  resizeUserCoverImage,
+  resizeUserProfileImage,
 } = require('../controllers/userController');
+
 const router = express.Router();
-// const tweetRouter = require('./tweetRoutes');
 
 router.route('/getAllusers').get(getAllusers);
-router.route('/getUser').get(protect, getUser);
-router.route('/editProfile').patch(protect, editProfile);
+router.route('/getMe').get(protect, getMe);
+router.route('/getUser/:userName').get(protect, getUser);
+router
+  .route('/editProfile')
+  .post(
+    protect,
+    uploadUserPhoto,
+    resizeUserProfileImage,
+    resizeUserCoverImage,
+    editProfile
+  );
 router.route('/deleteMe').delete(protect, deleteUser);
 
 router.route('/signout').get(protect, signout);
 router.route('/signup').post(signup);
 router.route('/login').post(login);
-
-// Tweets
-
-const {
-  createTweet,
-  getUserTweets,
-  getAllTweets,
-} = require('../controllers/tweetController');
-
-router.route('/createTweet').post(protect, createTweet);
-router.route('/getTweets').get(protect, getUserTweets);
-router.route('/getAllTweets').get(protect, getAllTweets);
 
 module.exports = router;

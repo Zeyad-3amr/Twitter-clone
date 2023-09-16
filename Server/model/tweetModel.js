@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 
 const tweetSchema = new mongoose.Schema({
-  tweet: String,
-  photo: String,
+  tweet: {
+    type: String,
+    required: false,
+  },
+  photo: {
+    type: String,
+    required: false,
+  },
   user: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
@@ -13,13 +19,6 @@ const tweetSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-
-// tweetSchema.post('save', function (doc, next) {
-//   // console.log(doc);
-//   nnn = .find({}).sort({ createdAt: -1 });
-//   console.log(nnn);
-//   next();
-// });
 
 const Tweet = mongoose.model('Tweet', tweetSchema);
 

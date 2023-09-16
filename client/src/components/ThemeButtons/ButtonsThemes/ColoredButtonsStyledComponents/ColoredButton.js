@@ -13,6 +13,10 @@ const buttonStyles = css`
   svg {
     color: white;
   }
+  @media (max-width: 1024px) {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
 `;
 
 export const RedButton = styled.button`

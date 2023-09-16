@@ -14,6 +14,7 @@ export const FiDiv = styled.div`
     border-radius: 100%;
     cursor: pointer;
     transition: 0.4s;
+    font-size: 30px;
   }
 
   svg:nth-child(1) {
@@ -41,6 +42,13 @@ export const FiDiv = styled.div`
     &:hover {
       color: #1da1f2;
       background-color: rgba(29, 161, 242, 0.07);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    svg {
+      font-size: 25px;
     }
   }
 `;

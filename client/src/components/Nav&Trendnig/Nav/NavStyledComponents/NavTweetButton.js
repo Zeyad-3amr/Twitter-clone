@@ -13,4 +13,8 @@ export const NavTweetButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;

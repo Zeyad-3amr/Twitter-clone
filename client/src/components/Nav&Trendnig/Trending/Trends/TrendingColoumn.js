@@ -64,7 +64,7 @@ const TrendingColoumn = () => {
             </TrendDiv>
 
             <TrendDiv>
-              <H6 showMore>Show more</H6>
+              <H6 showmore="true">Show more</H6>
             </TrendDiv>
           </TrendingDiv>
 
@@ -97,7 +97,7 @@ const TrendingColoumn = () => {
               <FollowButton>Follow</FollowButton>
             </WhoToFollowDiv>
             <TrendDiv>
-              <H6 showMore>Show more</H6>
+              <H6 showmore="true">Show more</H6>
             </TrendDiv>
           </TrendingDiv>
         </TrendsDiv>

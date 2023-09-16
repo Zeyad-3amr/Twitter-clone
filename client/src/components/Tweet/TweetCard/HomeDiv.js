@@ -3,12 +3,10 @@ import { styled } from 'styled-components';
 export const HomeDiv = styled.div`
   display: flex;
   flex-direction: column;
-  border-width: thin;
-  border-style: solid;
+  align-items: center;
+  width: 60%;
 
-  border-color: ${({ theme }) => theme.theme.borderColor};
-  border-top: none;
-  align items:center;
-  width:60%
-
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;

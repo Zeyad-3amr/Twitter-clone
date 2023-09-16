@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-export const LINK = styled(Link)`
+export const NAVLINK = styled(NavLink)`
   display: flex;
   width: 100%;
   border-radius: 4rem;
@@ -21,5 +21,13 @@ export const LINK = styled(Link)`
   }
   path {
     color: ${({ theme }) => theme.theme.textColor};
+  }
+  &.active {
+    path {
+      color: ${({ theme }) => theme.buttonTheme.color};
+    }
+    H3 {
+      color: ${({ theme }) => theme.buttonTheme.color};
+    }
   }
 `;

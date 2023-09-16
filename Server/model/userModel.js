@@ -8,6 +8,15 @@ const userSchema = new mongoose.Schema({
     trim: true,
     maxlength: [25, 'username must be less Than 40 characters'],
     minlength: [3, 'username must be less Than 40 characters'],
+    required: [true, 'user must have a name'],
+  },
+  userName: {
+    type: String,
+    trim: true,
+    maxlength: [25, 'username must be less Than 40 characters'],
+    minlength: [3, 'username must be less Than 40 characters'],
+    unique: true,
+    required: [true, 'user must have a username'],
   },
   email: {
     type: String,
@@ -16,7 +25,7 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     validate: [valdidator.isEmail, 'Please provide a valid email!'],
   },
-  userName: String,
+  // userName: String,
   password: {
     type: String,
     required: [true, 'user must have Password !'],
@@ -34,9 +43,17 @@ const userSchema = new mongoose.Schema({
       message: 'Passwords are not the same!',
     },
   },
-  passwordChangedAt: Date,
-  bio: String,
-  profileImage: String,
+  bio: { type: String, default: '' },
+  profileImage: {
+    type: String,
+    default:
+      'https://res.cloudinary.com/df6gs6m1e/image/upload/v1694552868/default_zzzv3q.jpg',
+  },
+  coverImage: {
+    type: String,
+    default:
+      'https://res.cloudinary.com/df6gs6m1e/image/upload/v1694554226/wallpaperflare.com_wallpaper_3_tjpvzd.jpg',
+  },
 });
 
 userSchema.pre('save', async function (next) {
@@ -45,10 +62,13 @@ userSchema.pre('save', async function (next) {
 
   next();
 });
-// userSchema.pre('save', async function (next) {
-//   this.passwordChangedAt = Date.now() - 1000;
-//   next();
-// });
+
+userSchema.pre('save', function (next) {
+  if (!this.userName.startsWith('@')) {
+    this.userName = '@' + this.userName;
+  }
+  next();
+});
 
 userSchema.methods.correctPassword = async (enteredPass, storedPass) => {
   return await bcrypt.compare(enteredPass, storedPass);
