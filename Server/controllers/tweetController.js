@@ -54,7 +54,6 @@ exports.createTweet = catchAsync(async (req, res, next) => {
   if (!obj.tweet && !obj.photo) {
     return next(new AppError('Tweet content cannot be empty', 401));
   }
-  console.log(obj);
   await Tweet.create(obj);
 
   const createdTweet = await Tweet.findOne().sort({ createdAt: -1 }).populate({

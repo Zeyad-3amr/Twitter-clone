@@ -133,7 +133,6 @@ exports.editProfile = catchAsync(async (req, res, next) => {
     runValidators: true,
   });
 
-  console.log(updatedUser);
   if (!updatedUser) {
     return next(new AppError('user not found!', 404));
   }
@@ -236,8 +235,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 });
 
 exports.signout = catchAsync(async (req, res, next) => {
-  console.log(req.user);
-
   res.cookie('jwt', '', {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
