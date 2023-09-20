@@ -31,7 +31,7 @@ function App() {
     theme: pageTheme[theme],
     buttonTheme: pageTheme[buttonTheme],
   };
-
+  // console.log(userProfile);
   useEffect(() => {
     const fetchUserHandler = async () => {
       try {
@@ -39,7 +39,8 @@ function App() {
         storageData();
 
         const res = await instance.get('user/getMe');
-        const data = await res.data.data;
+        console.log(res);
+        const data = res.data.data;
 
         setUser(data);
       } catch (err) {
