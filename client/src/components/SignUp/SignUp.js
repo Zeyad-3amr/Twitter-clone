@@ -9,7 +9,8 @@ import instance from '../../axios';
 import { useNavigate } from 'react-router-dom';
 import { useUserIdStore } from '../../store/userStorage';
 import { ErrorP } from '../styledComponentsTest.js/components.js/ErrorP/ErrorP';
-
+import { CircularProgress } from '@mui/material';
+import { LoadingDiv } from '../Tweet/TweetCard/LoadindDiv';
 const SignUp = () => {
   const navigate = useNavigate();
   const [name, setName] = useState('');
@@ -19,6 +20,7 @@ const SignUp = () => {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const setUser = useUserIdStore((state) => state.setUser);
 
@@ -59,6 +61,7 @@ const SignUp = () => {
         password,
         passwordConfirm,
       };
+      setIsLoading(true);
 
       const res = await instance.post('user/signup', data);
 
@@ -67,6 +70,7 @@ const SignUp = () => {
       }
       const { user } = await res.data.data;
       setUser(user);
+      setIsLoading(false);
     } catch (err) {
       setIsError(true);
       setErrorMessage(err.response.data.message);
@@ -94,6 +98,11 @@ const SignUp = () => {
       />
       {isError && <ErrorP>{errorMessage}</ErrorP>}
       <Button onClick={signupHandler}>Sign up</Button>
+      {isLoading && (
+        <LoadingDiv>
+          <CircularProgress size={50} />
+        </LoadingDiv>
+      )}
     </Div>
   );
 };
